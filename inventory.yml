@@ -1,0 +1,6 @@
+---
+pvenodes:
+  hosts:
+    pve03.griend.dev:
+      ansible_host: 192.168.2.110
+

@@ -1,0 +1,9 @@
+---
+- name: Install Proxmox-VE
+  hosts: all
+  become: true
+  gather_facts: false
+
+  roles:
+    - proxmox-ve
+
