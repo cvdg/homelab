@@ -1,8 +1,0 @@
----
-- name: Bootstrap a new host with the user ansible
-  hosts: all
-  become: true
-  gather_facts: false
-
-  roles:
-    - bootstrap

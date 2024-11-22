@@ -17,7 +17,7 @@
 - name: Add ssh authorized key
   ansible.posix.authorized_key:
     user: ansible
-    key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIARZzMKZ4lIEdk5Qd7SEl9FuMNOv1t1LExbtHg6HeBKF ansible@griend.dev'
+    key: '{{ bootstrap_authorized_key }}'
     state: present
 
 - name: Install sudo
@@ -32,4 +32,3 @@
     owner: root
     group: root
     mode: '0600'
-

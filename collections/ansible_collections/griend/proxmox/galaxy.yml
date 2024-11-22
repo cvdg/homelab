@@ -1,0 +1,21 @@
+namespace: griend
+name: proxmox
+version: 1.0.0
+readme: README.md
+authors:
+- Cees van de Griend <cees@griend.dev>
+
+description: Playground for ansible collections.
+
+license:
+- EUPL-1.2
+
+tags: []
+
+dependencies: {}
+
+repository: http://example.com/repository
+documentation: http://docs.example.com
+homepage: http://example.com
+issues: http://example.com/issue/tracker
+build_ignore: []
