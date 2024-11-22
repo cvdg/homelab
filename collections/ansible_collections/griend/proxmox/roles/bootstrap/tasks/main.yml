@@ -32,3 +32,46 @@
     owner: root
     group: root
     mode: '0600'
+
+- name: Disable suspend on a notebook
+  ansible.builtin.debug:
+    msg: '{{ ansible_form_factor }}'
+
+#
+# /etc/systemd/logind.conf:
+#   HandleLidSwitch=ignore
+#   HandleLidSwitchExternalPower=ignore
+#   HandleLidSwitchDocked=ignore
+#   LidSwitchIgnoreInhibited=no
+#
+- name: 'Disable suspend on a notebook - HandleLidSwitch'
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: 'ˆ#?HandleLidSwitch='
+    line: 'HandleLidSwitch=ignore'
+  notify: 'Restart systemd-logind'
+  when: ansible_form_factor == "Notebook"
+
+- name: 'Disable suspend on a notebook - HandleLidSwitchExternalPower'
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: 'ˆ#?HandleLidSwitchExternalPower='
+    line: 'HandleLidSwitchExternalPower=ignore'
+  notify: 'Restart systemd-logind'
+  when: ansible_form_factor == "Notebook"
+
+- name: 'Disable suspend on a notebook - LidSwitchIgnoreInhibited'
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: 'ˆ#?LidSwitchIgnoreInhibited='
+    line: 'LidSwitchIgnoreInhibited=ignore'
+  notify: 'Restart systemd-logind'
+  when: ansible_form_factor == "Notebook"
+
+- name: 'Disable suspend on a notebook - HandleLidSwitch'
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: 'ˆ#?HandleLidSwitch='
+    line: 'HandleLidSwitch=ignore'
+  notify: 'Restart systemd-logind'
+  when: ansible_form_factor == "Notebook"
