@@ -1,6 +1,11 @@
 ---
-pvenodes:
-  hosts:
-    pve03.griend.dev:
-      ansible_host: 192.168.2.110
-
+all:
+  children:
+    pvenodes:
+      hosts:
+        pve03.griend.dev:
+          ansible_host: 192.168.2.111
+    vms:
+      hosts:
+        deb01.griend.dev:
+          ansible_host: 192.168.2.113
