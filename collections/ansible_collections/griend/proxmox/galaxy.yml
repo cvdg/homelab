@@ -14,8 +14,9 @@ tags: []
 
 dependencies: {}
 
-repository: http://example.com/repository
-documentation: http://docs.example.com
-homepage: http://example.com
-issues: http://example.com/issue/tracker
+repository: https://gitlab.com/homelab-griend.dev/homelab-proxmox.git
+documentation: https://gitlab.com/homelab-griend.dev/homelab-proxmox.git
+homepage: https://gitlab.com/homelab-griend.dev/homelab-proxmox.git
+issues: https://gitlab.com/homelab-griend.dev/homelab-proxmox/-/issues
+
 build_ignore: []
