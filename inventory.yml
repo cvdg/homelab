@@ -9,3 +9,7 @@ all:
       hosts:
         deb01.griend.dev:
           ansible_host: 192.168.2.113
+    lxc:
+      hosts:
+        deb03.griend.dev:
+          ansible_host: 192.168.2.114
