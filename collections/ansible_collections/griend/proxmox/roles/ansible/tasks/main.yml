@@ -1,0 +1,40 @@
+---
+- name: Update packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    cache_valid_time: 3600
+
+- name: Create group ansible
+  ansible.builtin.group:
+    name: ansible
+    state: present
+    system: true
+
+- name: Create user ansible
+  ansible.builtin.user:
+    name: ansible
+    group: ansible
+    home: /home/ansible
+    shell: /bin/bash
+    state: present
+    system: true
+
+- name: Add ssh authorized key
+  ansible.posix.authorized_key:
+    user: ansible
+    key: '{{ ansible_authorized_key }}'
+    state: present
+
+- name: Install sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: present
+
+- name: Create sudo for user ansible
+  ansible.builtin.copy:
+    content: 'ansible ALL=(ALL:ALL) NOPASSWD: ALL'
+    dest: /etc/sudoers.d/50-ansible
+    owner: root
+    group: root
+    mode: '0600'
