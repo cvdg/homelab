@@ -9,6 +9,9 @@
     network_static_address: '192.168.2.128'
     network_gateway_address: '192.168.2.254'
 
+  #
+  # Runs: pi-hole
+  #
   roles:
     - griend.proxmox.network
     - griend.proxmox.ansible

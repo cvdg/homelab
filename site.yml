@@ -1,0 +1,11 @@
+---
+- name: Site
+  hosts: all
+  become: true
+  gather_facts: true
+
+- name: Import Playbook 100
+  ansible.builtin.import_playbook: 100-dns01.yml
+
+- name: Import Playbook 101
+  ansible.builtin.import_playbook: 101-proxy01.yml

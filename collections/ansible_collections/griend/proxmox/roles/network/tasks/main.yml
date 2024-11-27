@@ -3,6 +3,14 @@
   ansible.builtin.hostname:
     name: '{{ ansible_hostname }}'
 
+- name: Create /etc/apt/apt.conf.d/50proxy
+  ansible.builtin.template:
+    src: 50proxy.j2
+    dest: /etc/apt/apt.conf.d/50proxy
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: Create /etc/hosts
   ansible.builtin.template:
     src: hosts.j2

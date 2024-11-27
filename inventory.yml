@@ -9,3 +9,5 @@ all:
       hosts:
         dns01.griend.dev:
           ansible_host: 192.168.2.128
+        proxy01.griend.dev:
+          ansible_host: 192.168.2.129
