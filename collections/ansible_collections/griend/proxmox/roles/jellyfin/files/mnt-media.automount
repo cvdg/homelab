@@ -1,0 +1,8 @@
+[Unit]
+Description = nfs mount for media files
+
+[Automount]
+Where=/mnt/media
+
+[Install]
+WantedBy=multi-user.target
