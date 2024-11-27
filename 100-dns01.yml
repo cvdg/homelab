@@ -1,0 +1,31 @@
+---
+- name: Create dns01 VM
+  hosts: dns01.griend.dev
+  become: true
+  gather_facts: true
+
+  vars:
+    ansible_authorized_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIARZzMKZ4lIEdk5Qd7SEl9FuMNOv1t1LExbtHg6HeBKF ansible@griend.dev'
+    network_static_address: '192.168.2.128'
+    network_gateway_address: '192.168.2.254'
+
+  roles:
+    - griend.proxmox.network
+    - griend.proxmox.ansible
+
+  tasks:
+    - name: Hostname
+      ansible.builtin.debug:
+        var: ansible_hostname
+
+    # - name: Domainname
+    #   ansible.builtin.debug:
+    #     var: ansible_domain
+
+    # - name: FQDN
+    #   ansible.builtin.debug:
+    #     var: ansible_fqdn
+
+    # - name: Interface
+    #   ansible.builtin.debug:
+    #     var: ansible_default_ipv4.interface
