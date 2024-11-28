@@ -5,6 +5,8 @@ all:
       hosts:
         pve01.griend.dev:
           ansible_host: 192.168.2.243
+        pve02.griend.dev:
+          ansible_host: 192.168.2.244
     vms:
       hosts:
         dns01.griend.dev:

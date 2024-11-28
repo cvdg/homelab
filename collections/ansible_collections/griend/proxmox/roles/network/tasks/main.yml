@@ -6,7 +6,7 @@
 - name: Disable proxy in /etc/apt/apt.conf
   ansible.builtin.lineinfile:
     path: /etc/apt/apt.conf
-    regexp: 'ˆAcquire::http::Proxy '
+    regexp: 'ˆAcquire::http::Proxy .*;$'
     state: absent
 
 - name: Create /etc/apt/apt.conf.d/50proxy

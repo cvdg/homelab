@@ -14,3 +14,15 @@
     - griend.proxmox.network
     - griend.proxmox.ansible
     - griend.proxmox.wireguard
+
+  tasks:
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - nfs-common
+          - pipx
+          - podman
+          - python3
+          - python3-pip
+          - rsync
+        state: present
