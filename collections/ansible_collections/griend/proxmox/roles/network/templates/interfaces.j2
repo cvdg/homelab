@@ -4,8 +4,8 @@ iface lo inet loopback
 
 # The primary network interface
 allow-hotplug {{ ansible_default_ipv4.interface }}
-iface {{ ansible_default_ipv4.interface}} inet static
+iface {{ network_ipv4_interface }} inet static
     address {{ network_static_address }}/24
     gateway {{ network_gateway_address }}
 
-iface {{ ansible_default_ipv4.interface}} inet6 auto
+iface {{ network_ipv4_interface }} inet6 auto

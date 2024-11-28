@@ -1,0 +1,22 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - resolvconf
+      - wireguard
+    state: present
+
+- name: Create /etc/wireguard/wg0.conf
+  ansible.builtin.copy:
+    src: wg0.conf
+    dest: /etc/wireguard/wg0.conf
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Create wg-quick@wg0.service
+  ansible.builtin.systemd:
+    name: wg-quick@wg0.service
+    state: started
+    enabled: true
+    daemon_reload: true

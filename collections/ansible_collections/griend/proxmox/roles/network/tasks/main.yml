@@ -3,6 +3,12 @@
   ansible.builtin.hostname:
     name: '{{ ansible_hostname }}'
 
+- name: Disable proxy in /etc/apt/apt.conf
+  ansible.builtin.lineinfile:
+    path: /etc/apt/apt.conf
+    regexp: 'ˆAcquire::http::Proxy '
+    state: absent
+
 - name: Create /etc/apt/apt.conf.d/50proxy
   ansible.builtin.template:
     src: 50proxy.j2
@@ -19,6 +25,7 @@
     group: root
     mode: '0644'
 
+# TODO: fix interface name (ens18)
 - name: Create /etc/network/interface
   ansible.builtin.template:
     src: interfaces.j2
