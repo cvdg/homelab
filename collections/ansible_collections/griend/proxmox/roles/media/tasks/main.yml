@@ -1,12 +1,7 @@
 ---
 - name: Install Jellyfin requirements
   ansible.builtin.apt:
-    name:
-      - apt-transport-https
-      - ca-certificates
-      - gnupg
-      - curl
-      - nfs-common
+    name: '{{ media_packages }}'
     state: present
 
 - name: Install Jellyfin GPG key
@@ -67,3 +62,58 @@
     state: started
     enabled: true
     daemon-reload: true
+
+- name: Create /data directories
+  ansible.builtin.file:
+    name: '{{ item }}'
+    state: directory
+    owner: '{{ media_owner }}'
+    group: '{{ media_group }}'
+    mode: '0775'
+  loop:
+    - /data/media
+    - /data/media/audio
+    - /data/media/book
+    - /data/media/movie
+    - /data/media/tv
+    - /data/torrent
+    - /data/torrent/audio
+    - /data/torrent/book
+    - /data/torrent/movie
+    - /data/torrent/tv
+
+- name: Copy /etc/rsyncd.conf
+  ansible.builtin.copy:
+    src: rsyncd.conf
+    dest: /etc/rsyncd.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Start rsync.service
+  ansible.builtin.systemd:
+    name: rsync.service
+    state: started
+    enabled: true
+
+- name: Copy compose.yml
+  ansible.builtin.copy:
+    src: compose.yml
+    dest: '/home/{{ media_owner }}/compose.yml'
+    owner: '{{ media_owner }}'
+    group: '{{ media_owner }}'
+    mode: '0644'
+
+- name: Create appdata directories
+  ansible.builtin.file:
+    name: '{{ item }}'
+    state: directory
+    owner: '{{ media_owner }}'
+    group: '{{ media_group }}'
+    mode: '0775'
+  loop:
+    - '/home/{{ media_owner }}/appdata'
+    - '/home/{{ media_owner }}/appdata/prowlarr'
+    - '/home/{{ media_owner }}/appdata/qbittorrent'
+    - '/home/{{ media_owner }}/appdata/radarr'
+    - '/home/{{ media_owner }}/appdata/sonarr'
