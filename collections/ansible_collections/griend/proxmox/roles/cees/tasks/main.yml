@@ -1,0 +1,109 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: '{{ cees_packages }}'
+    state: present
+
+- name: ~/
+  ansible.builtin.file:
+    name: /home/cees/
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.ssh/
+  ansible.builtin.file:
+    name: /home/cees/.ssh
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.ssh/master/
+  ansible.builtin.file:
+    name: /home/cees/.ssh/master
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.ssh/authorized_keys
+  ansible.builtin.template:
+    src: ssh/authorized_keys.j2
+    dest: /home/cees/.ssh/authorized_keys
+    owner: cees
+    group: cees
+    mode: '0600'
+
+- name: ~/.ssh/config
+  ansible.builtin.template:
+    src: ssh/config.j2
+    dest: /home/cees/.ssh/config
+    owner: cees
+    group: cees
+    mode: '0600'
+
+- name: ~/.local/
+  ansible.builtin.file:
+    name: /home/cees/.local
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.local/bin/
+  ansible.builtin.file:
+    name: /home/cees/.local/bin
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.config/
+  ansible.builtin.file:
+    name: /home/cees/.config
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.config/zsh/
+  ansible.builtin.file:
+    name: /home/cees/.config/zsh
+    state: directory
+    owner: cees
+    group: cees
+    mode: '0700'
+
+- name: ~/.zshenv
+  ansible.builtin.copy:
+    content: |
+      export ZDOTDIR=/home/cees/.config/zsh/
+    dest: /home/cees/.zshenv
+    owner: cees
+    group: cees
+    mode: '0600'
+
+- name: ~/.config/.zshrc
+  ansible.builtin.template:
+    src: zshrc.j2
+    dest: /home/cees/.config/zsh/.zshrc
+    owner: cees
+    group: cees
+    mode: '0644'
+
+- name: ~/.config/zsh/
+  ansible.builtin.template:
+    src: '{{ item }}'
+    dest: "/home/cees/.config/zsh/{{ item | basename | replace('.j2', '') }}"
+    owner: cees
+    group: cees
+    mode: '0644'
+  with_fileglob:
+    - '{{ role_path }}/templates/zsh/*.j2'
+
+- name: Ensure default shell is /usr/bin/zsh
+  ansible.builtin.user:
+    name: cees
+    shell: /usr/bin/zsh

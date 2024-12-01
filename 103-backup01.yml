@@ -13,18 +13,9 @@
   roles:
     - griend.proxmox.network
     - griend.proxmox.ansible
-
+    - griend.proxmox.cees
+    
   tasks:
-    - name: Install packages
-      ansible.builtin.apt:
-        name:
-          - curl
-          - htop
-          - rsync
-          - tmux
-          - vim-nox
-        state: present
-
     - name: Info btrfs filesystems
       community.general.btrfs_info:
       register: my_btrfs_info
