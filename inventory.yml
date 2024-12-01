@@ -15,7 +15,5 @@ all:
           ansible_host: 192.168.2.129
         media01.griend.dev:
           ansible_host: 192.168.2.130
-        media02.griend.dev:
-          ansible_host: 192.168.2.131
         backup01.griend.dev:
-          ansible_host: 192.168.2.132
+          ansible_host: 192.168.2.131
