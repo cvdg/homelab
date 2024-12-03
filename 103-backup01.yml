@@ -13,7 +13,6 @@
   roles:
     - griend.proxmox.network
     - griend.proxmox.ansible
-    - griend.proxmox.cees
     
   tasks:
     - name: Info btrfs filesystems

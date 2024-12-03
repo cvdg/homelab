@@ -1,7 +1,15 @@
 ---
 - name: Set hostname
   ansible.builtin.hostname:
-    name: '{{ ansible_hostname }}'
+    name: '{{ network_hostname }}'
+
+- name: Set /etc/hostname
+  ansible.builtin.copy:
+    content: '{{ network_hostname }}'
+    dest: /etc/hostname
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Disable proxy in /etc/apt/apt.conf
   ansible.builtin.lineinfile:
@@ -41,7 +49,6 @@
     owner: root
     group: root
     mode: '0644'
-
 
 - name: Create /etc/apt/sources.list
   ansible.builtin.template:

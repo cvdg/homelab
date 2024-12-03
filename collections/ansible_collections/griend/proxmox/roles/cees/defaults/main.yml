@@ -1,8 +1,0 @@
----
-cees_packages:
-  - curl
-  - htop
-  - rsync
-  - tmux
-  - vim-nox
-  - zsh

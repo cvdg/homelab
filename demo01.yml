@@ -1,0 +1,28 @@
+---
+- name: Create demo hosts playbook
+  hosts: demo01.griend.dev
+
+  vars:
+    proxmox_api_host: pve01.griend.dev
+    proxmox_node: pve01
+
+  tasks:
+    - name: Clone vm demo01
+      community.general.proxmox_kvm:
+        api_user: '{{ vault.proxmox_api_user }}'
+        api_password: '{{ vault.proxmox_api_password }}'
+        api_host: '{{ proxmox_api_host }}'
+        node: '{{ proxmox_node }}'
+        clone: debian12
+        name: demo01
+      delegate_to: localhost
+
+    - name: Start vm demo01
+      community.general.proxmox_kvm:
+        api_user: '{{ vault.proxmox_api_user }}'
+        api_password: '{{ vault.proxmox_api_password }}'
+        api_host: '{{ proxmox_api_host }}'
+        node: '{{ proxmox_node }}'
+        name: demo01
+        state: started
+      delegate_to: localhost
