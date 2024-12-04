@@ -4,9 +4,11 @@
   become: true
   gather_facts: true
 
-  roles:
-    - griend.proxmox.repositories
-    - griend.proxmox.ansible
-    - griend.proxmox.notebook
   vars:
     ansible_authorized_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIARZzMKZ4lIEdk5Qd7SEl9FuMNOv1t1LExbtHg6HeBKF ansible@griend.dev'
+
+  roles:
+    - griend.proxmox.repositories
+    - griend.proxmox.notebook
+    - griend.proxmox.ansible
+    - griend.proxmox.cees

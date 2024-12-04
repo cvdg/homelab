@@ -1,0 +1,8 @@
+---
+- name: Neovim playbook
+  hosts: all
+  become: true
+  gather_facts: false
+
+  roles:
+    - griend.proxmox.nvim

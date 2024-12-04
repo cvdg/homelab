@@ -9,9 +9,6 @@
     network_ipv4_interface: ens18
     network_static_address: '192.168.2.132'
     network_gateway_address: '192.168.2.254'
-    network_hostname: demo01
-    network_fqdn: demo01.griend.dev
-
 
   roles:
     - griend.proxmox.network

@@ -1,0 +1,34 @@
+---
+- name: Create group cees
+  ansible.builtin.group:
+    name: cees
+    state: present
+
+- name: Create user cees
+  ansible.builtin.user:
+    name: cees
+    group: cees
+    groups: adm
+    append: true
+    home: /home/cees
+    create_home: true
+    state: present
+
+- name: ~cees/.ssh/authorized_keys
+  ansible.posix.authorized_key:
+    user: cees
+    key: '{{ ansible_authorized_key }}'
+    state: present
+
+- name: Install sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: present
+
+- name: Create sudo for group adm
+  ansible.builtin.copy:
+    content: '%adm ALL=(ALL:ALL) NOPASSWD: ALL'
+    dest: /etc/sudoers.d/50-adm
+    owner: root
+    group: root
+    mode: '0600'

@@ -1,11 +1,11 @@
 ---
 - name: Set hostname
   ansible.builtin.hostname:
-    name: '{{ network_hostname }}'
+    name: '{{ inventory_hostname_short }}'
 
 - name: Set /etc/hostname
   ansible.builtin.copy:
-    content: '{{ network_hostname }}'
+    content: '{{ inventory_hostname_short }}'
     dest: /etc/hostname
     owner: root
     group: root
