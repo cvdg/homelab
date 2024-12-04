@@ -8,7 +8,7 @@
     mode: '0600'
   with_fileglob:
     - '{{ role_path }}/files/{{ inventory_hostname }}/ssh_host_*_key'
-  notify: Reload sshd
+  notify: Restart sshd
 
 - name: Copy ssh_host_*_key.pub
   ansible.builtin.copy:
