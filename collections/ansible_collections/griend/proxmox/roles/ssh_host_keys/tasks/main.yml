@@ -1,0 +1,22 @@
+---
+- name: Copy ssh_host_*_key
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: '/etc/ssh/{{ item | basename }}'
+    owner: root
+    group: root
+    mode: '0600'
+  with_fileglob:
+    - '{{ role_path }}/files/{{ inventory_hostname }}/ssh_host_*_key'
+  notify: Reload sshd
+
+- name: Copy ssh_host_*_key.pub
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: '/etc/ssh/{{ item | basename }}'
+    owner: root
+    group: root
+    mode: '0644'
+  with_fileglob:
+    - '{{ role_path }}/files/{{ inventory_hostname }}/ssh_host_*_key.pub'
+  notify: Restart sshd

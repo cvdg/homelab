@@ -1,0 +1,11 @@
+---
+zsh_packages:
+  - bat
+  - fortunes
+  - fzf
+  - git
+  - tmux
+  - zoxide
+  - zsh
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting

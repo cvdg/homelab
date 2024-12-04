@@ -17,7 +17,7 @@
 - name: ~cees/.ssh/authorized_keys
   ansible.posix.authorized_key:
     user: cees
-    key: '{{ ansible_authorized_key }}'
+    key: '{{ cees_authorized_key }}'
     state: present
 
 - name: Install sudo

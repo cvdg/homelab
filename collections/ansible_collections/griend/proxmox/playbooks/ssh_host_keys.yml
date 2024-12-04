@@ -1,0 +1,32 @@
+---
+- name: Fetch ssh_host_keys playbook
+  hosts: all
+  become: true
+  gather_facts: false
+  ignore_errors: true
+  ignore_unreachable: true
+
+  tasks:
+    - name: Create /tmp/ssh_host_keys.d/
+      ansible.builtin.file:
+        path: /tmp/ssh_host_keys.d/
+        state: directory
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: 'Create /tmp/ssh_host_keys.d/{{ inventory_hostname }}'
+      ansible.builtin.file:
+        path: '/tmp/ssh_host_keys.d/{{ inventory_hostname }}'
+        state: directory
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Fetch ssh_host_keys
+      ansible.builtin.fetch:
+        src: '{{ item }}'
+        dest: '/tmp/ssh_host_keys.d/{{ inventory_hostname }}/{{ item | basename }}'
+        flat: true
+      with_fileglob:
+        - '/etc/ssh/ssh_host_*'

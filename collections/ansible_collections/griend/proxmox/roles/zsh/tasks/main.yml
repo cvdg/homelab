@@ -1,0 +1,5 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: '{{ zsh_packages }}'
+    state: present

@@ -1,5 +1,5 @@
 ---
-- name: Bootstrap a new host with the user ansible
+- name: Install software playbook
   hosts: all
   become: true
   gather_facts: true
@@ -9,7 +9,10 @@
     cees_authorized_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP2Xsyb0uhzxy/jphniTU0YtazWFgzGAMXFLSWC2saSF cees@griend.dev'
 
   roles:
-    - griend.proxmox.repositories
-    - griend.proxmox.notebook
     - griend.proxmox.ansible
     - griend.proxmox.cees
+    - griend.proxmox.notebook
+    - griend.proxmox.nvim
+    - griend.proxmox.repositories
+    - griend.proxmox.ssh_host_keys
+    - griend.proxmox.zsh
