@@ -1,4 +1,9 @@
 ---
+- name: Install requirements
+  ansible.builtin.apt:
+    name: '{{ nvim_requirements }}'
+    state: present
+
 - name: Create /opt/download
   ansible.builtin.file:
     dest: /opt/download
@@ -21,6 +26,23 @@
     src: /opt/download/nvim-linux64.tar.gz
     remote_src: true
     dest: /opt
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Download lazygit
+  ansible.builtin.get_url:
+    url: '{{ lazygit_url }}'
+    dest: /opt/download/lazygit-_Linux_x86_64.tar.gz
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Extract lazygit
+  ansible.builtin.unarchive:
+    src: /opt/download/lazygit-_Linux_x86_64.tar.gz
+    remote_src: true
+    dest: /usr/local/bin
     owner: root
     group: root
     mode: '0755'
