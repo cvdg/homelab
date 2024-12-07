@@ -5,6 +5,7 @@ nvim_checksum: 'sha256:9f696e635d503b844e4e78e88a22bcf512a78f288bf471379afc3d000
 
 nvim_requirements:
   - build-essential
+  - cmake
   - fd-find
   - git
   - golang

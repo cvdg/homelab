@@ -1,0 +1,5 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: '{{ workstation_packages }}'
+    state: present

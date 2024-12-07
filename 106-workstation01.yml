@@ -1,0 +1,8 @@
+---
+- name: Install workstation01 VM
+  hosts: workstation01.griend.dev
+  become: true
+  gather_facts: true
+
+  roles:
+    - griend.proxmox.workstation
