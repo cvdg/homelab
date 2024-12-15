@@ -10,6 +10,7 @@
 
   roles:
     - griend.proxmox.ansible
+    - griend.proxmox.backup
     - griend.proxmox.cees
     - griend.proxmox.notebook
     - griend.proxmox.nvim

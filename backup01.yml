@@ -9,10 +9,13 @@
     network_ipv4_interface: ens18
     network_static_address: '192.168.2.131'
     network_gateway_address: '192.168.2.254'
+    dotfiles_user: cees
+    dotfiles_group: cees
 
   roles:
     - griend.proxmox.network
     - griend.proxmox.ansible
+    - griend.proxmox.backup
     
   tasks:
     - name: Info btrfs filesystems
