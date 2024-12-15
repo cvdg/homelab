@@ -24,7 +24,7 @@ a Limux VM `backup01`.
 
 On the host `backup01` the home-directory is a btrfs.
 - `backup01`: I make a snapshot daily.
-- `backup01``: I copy with `rsync` the files to a TrueNAS server: `nas01` with
+- `backup01`: I copy with `rsync` the files to a TrueNAS server: `nas01` with
   redundant `zfs` disks.
 - `nas01`: A zfs snapshot is made daily.
 
