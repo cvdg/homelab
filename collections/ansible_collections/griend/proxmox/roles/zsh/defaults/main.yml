@@ -4,6 +4,7 @@ zsh_packages:
   - fortunes
   - fzf
   - git
+  - lsd
   - tmux
   - zoxide
   - zsh
