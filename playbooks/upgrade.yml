@@ -1,0 +1,21 @@
+---
+- name: Upgrade playbook
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Apt upgrade
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+        autoclean: true
+
+    - name: Check for reboot
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: required
+
+    - name: Reboot
+      ansible.builtin.reboot:
+      when: required.stat.exists

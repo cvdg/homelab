@@ -1,0 +1,2 @@
+---
+ansible_authorized_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIARZzMKZ4lIEdk5Qd7SEl9FuMNOv1t1LExbtHg6HeBKF ansible@griend.dev

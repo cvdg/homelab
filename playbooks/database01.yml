@@ -1,0 +1,61 @@
+---
+- name: Create demo hosts playbook
+  hosts: database01.griend.dev
+  become: true
+  gather_facts: true
+
+  vars:
+    db_user: cees
+    db_password: cees
+
+  handlers:
+    - name: Restart postgresql
+      ansible.builtin.systemd:
+        name: postgresql.service
+        state: restarted
+
+  tasks:
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - postgresql
+          - postgresql-contrib
+          - python3-psycopg2
+        state: present
+
+    - name: Create db user
+      community.postgresql.postgresql_user:
+        user: "{{ db_user }}"
+        password: "{{ db_password}}"
+        state: present
+      become: true
+      become_user: postgres
+
+    - name: Create db 
+      community.postgresql.postgresql_db:
+        name: "{{ db_user }}"
+        owner: "{{ db_user }}"
+        state: present
+      become: true
+      become_user: postgres
+
+    - name: Allow network access
+      community.postgresql.postgresql_pg_hba:
+        dest: /etc/postgresql/15/main/pg_hba.conf
+        state: present
+        users: cees
+        databases: cees
+        contype: host
+        source: 192.168.2.0/24
+        method: password
+        create: true
+      become: true
+      become_user: postgres
+      notify: Restart postgresql
+
+    - name: Listen network  
+      ansible.builtin.lineinfile:
+        path: /etc/postgresql/15/main/postgresql.conf
+        regexp: "^#+listen_addresses = "
+        line: "listen_addresses = '*'"
+      notify: Restart postgresql

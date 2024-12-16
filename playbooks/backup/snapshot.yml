@@ -1,0 +1,34 @@
+---
+- name: Create backup01 VM
+  hosts: backup01.griend.dev
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Create /srv/backup
+      community.general.btrfs_subvolume:
+        name: /backup
+        filesystem_device: /dev/sdb1
+        state: present
+
+    - name: Set permissions /srv/backup
+      ansible.builtin.file:
+        path: /srv/backup
+        state: directory
+        owner: root
+        group: adm
+        mode: '0775'
+
+    - name: Create a initial snapshot of /srv/backup
+      community.general.btrfs_subvolume:
+        name: /snapshot/initial
+        snapshot_source: /backup
+        filesystem_device: /dev/sdb1
+        state: present
+
+    - name: Create a daily snapshot of /srv
+      community.general.btrfs_subvolume:
+        name: '/snapshot/{{ ansible_date_time.date }}'
+        snapshot_source: /backup
+        filesystem_device: /dev/sdb1
+        state: present

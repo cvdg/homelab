@@ -1,0 +1,15 @@
+---
+- name: Install playbook
+  hosts: all
+  become: true
+  gather_facts: true
+
+  roles:
+    - ansible
+    - backup
+    - cees
+    - notebook
+    - nvim
+    - repositories
+    - ssh_host_keys
+    - zsh
