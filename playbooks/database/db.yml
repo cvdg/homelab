@@ -1,0 +1,64 @@
+---
+- name: DB playbook
+  hosts: database01.griend.dev
+  become: true
+  become_user: postgres
+  
+  vars_prompt:
+    - name: db_name
+      prompt: What is de database name?
+      private: false
+
+    - name: db_user
+      prompt: What is de database user?
+      private: false
+
+    - name: db_password
+      prompt: What is de database password?
+
+  handlers:
+    - name: Restart postgresql
+      ansible.builtin.systemd:
+        name: postgresql.service
+        state: restarted
+      become: true
+      become_user: root
+
+  tasks:
+    - name: Display db_name
+      ansible.builtin.debug:
+        var: db_name
+
+    - name: Display db_user
+      ansible.builtin.debug:
+        var: db_user
+
+    - name: Display db_password
+      ansible.builtin.debug:
+        var: db_password
+
+    - name: Create db_user
+      community.postgresql.postgresql_user:
+        user: "{{ db_user }}"
+        password: "{{ db_password }}"
+        state: present
+
+    - name: Create db_name
+      community.postgresql.postgresql_db:
+        name: "{{ db_name }}"
+        owner: "{{ db_user }}"
+        state: present
+
+    - name: Allow network access
+      community.postgresql.postgresql_pg_hba:
+        dest: /etc/postgresql/15/main/pg_hba.conf
+        state: present
+        users: "{{ db_user }}"
+        databases: "{{ db_name }}"
+        contype: host
+        source: 192.168.2.0/24
+        method: password
+        create: true
+      notify: Restart postgresql
+
+

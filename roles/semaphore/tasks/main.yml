@@ -1,0 +1,25 @@
+---
+- name: Create download directory
+  ansible.builtin.file:
+    path: /opt/download
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: semaphore_role
+
+- name: Download semaphore
+  ansible.builtin.get_url:
+    url: '{{ semaphore_url }}'
+    dest: '/opt/download/semaphore_{{ semaphore_version }}_linux_amd64.deb'
+    checksum: '{{ semaphore_checksum }}'
+    owner: root
+    group: root
+    mode: '0644'
+  when: semaphore_role
+
+- name: Install semaphore
+  ansible.builtin.apt:
+    deb: '/opt/download/semaphore_{{ semaphore_version }}_linux_amd64.deb'
+    state: present
+  when: semaphore_role

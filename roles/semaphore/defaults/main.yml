@@ -1,0 +1,6 @@
+---
+semaphore_role: false
+
+semaphore_version: 2.10.43
+semaphore_url: "https://github.com/semaphoreui/semaphore/releases/download/v{{ semaphore_version }}/semaphore_{{ semaphore_version }}_linux_amd64.deb"
+semaphore_checksum: "sha256:990be0cefb5304a043b27774cc54e41314da5cbc57e5f9a9836db7327734a5e3"

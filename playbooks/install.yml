@@ -11,6 +11,7 @@
     - notebook
     - nvim
     - repositories
+    - semaphore
     - ssh_host_keys
     - workstation
     - zsh
