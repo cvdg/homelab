@@ -1,4 +1,5 @@
 ---
+workstation_role: 
 workstation_packages:
   - task-desktop
   - task-gnome-desktop

@@ -1,0 +1,9 @@
+---
+- name: Reboot playbook
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Reboot
+      ansible.builtin.reboot:

@@ -12,4 +12,5 @@
     - nvim
     - repositories
     - ssh_host_keys
+    - workstation
     - zsh
