@@ -7,25 +7,9 @@
   ignore_unreachable: true
 
   tasks:
-    - name: Download directory
+    - name: Set download directory
       ansible.builtin.set_fact:
         ssh_host_keys_download_dir: '{{ playbook_dir }}/../roles/ssh_host_keys/files/{{ inventory_hostname }}'
-
-    - name: Create /tmp/ssh_host_keys.d/
-      ansible.builtin.file:
-        path: /tmp/ssh_host_keys.d/
-        state: directory
-        owner: root
-        group: root
-        mode: '0700'
-
-    - name: 'Create /tmp/ssh_host_keys.d/{{ inventory_hostname }}'
-      ansible.builtin.file:
-        path: '/tmp/ssh_host_keys.d/{{ inventory_hostname }}'
-        state: directory
-        owner: root
-        group: root
-        mode: '0700'
 
     - name: Fetch ssh_host_keys
       ansible.builtin.fetch:
