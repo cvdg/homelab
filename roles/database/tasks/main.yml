@@ -1,0 +1,14 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ database_packages }}"
+    state: present
+  when: database_role
+ 
+- name: Listen network
+  ansible.builtin.lineinfile:
+    path: /etc/postgresql/15/main/postgresql.conf
+    regexp: "^#+listen_addresses = "
+    line: "listen_addresses = '*'"
+  notify: Restart postgresql.service
+  when: database_role

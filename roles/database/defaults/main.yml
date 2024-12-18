@@ -1,0 +1,7 @@
+---
+database_role: false
+
+database_packages:
+  - postgresql
+  - postgresql-contrib
+  - python3-psycopg2

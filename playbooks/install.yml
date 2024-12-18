@@ -11,6 +11,9 @@
     - role: backup
       tags: backup
 
+    - role: database
+      tags: database
+
     - role: cees
       tags: cees
 
