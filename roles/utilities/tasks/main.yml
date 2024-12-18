@@ -1,0 +1,18 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ utilities_packages }}"
+    state: present
+  when: utilities_role
+
+- name: Install network packages
+  ansible.builtin.apt:
+    name: "{{ utilities_network_packages }}"
+    state: present
+  when: utilities_role and utilities_network_role
+
+- name: Install system packages
+  ansible.builtin.apt:
+    name: "{{ utilities_system_packages }}"
+    state: present
+  when: utilities_role and utilities_system_role

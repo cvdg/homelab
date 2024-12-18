@@ -1,0 +1,18 @@
+---
+utilities_role: false
+utilities_network_role: false
+utilities_system_role: false
+
+utilities_packages:
+  - lsd
+  - rsync
+
+utilities_network_packages:
+  - iotop
+  - iperf3
+  - nmap
+  - tcpdump
+
+utilities_system_packages:
+  - lsd
+  - rsync
