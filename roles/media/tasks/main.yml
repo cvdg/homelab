@@ -3,23 +3,27 @@
   ansible.builtin.apt:
     name: '{{ media_packages }}'
     state: present
+  when: media_role
 
 - name: Install Jellyfin GPG key
   ansible.builtin.apt_key:
     url: https://repo.jellyfin.org/jellyfin_team.gpg.key
     state: present
+  when: media_role
 
 - name: Install Jellyfin repository
   ansible.builtin.apt_repository:
     repo: 'deb https://repo.jellyfin.org/debian/ {{ ansible_distribution_release }} main'
     filename: jellyfin
     state: present
+  when: media_role
 
 - name: Install Jellyfin
   ansible.builtin.apt:
     name: jellyfin
     state: present
     update_cache: true
+  when: media_role
 
 #
 # Check if mount point exists before trying to create it,
@@ -30,6 +34,7 @@
   ansible.builtin.stat:
     path: /mnt/media
   register: media
+  when: media_role
 
 - name: Create media mount point
   ansible.builtin.file:
@@ -38,7 +43,7 @@
     owner: jellyfin
     group: jellyfin
     mode: '0755'
-  when: not media.stat.isdir is defined or not media.stat.isdir
+  when: media_role and (not media.stat.isdir is defined or not media.stat.isdir)
 
 - name: Copy mnt-media.mount
   ansible.builtin.copy:
@@ -47,6 +52,7 @@
     owner: root
     group: root
     mode: '0644'
+  when: media_role
 
 - name: Copy mnt-media.automount
   ansible.builtin.copy:
@@ -55,6 +61,7 @@
     owner: root
     group: root
     mode: '0644'
+  when: media_role
 
 - name: Start mnt-media.automount
   ansible.builtin.systemd:
@@ -62,6 +69,7 @@
     state: started
     enabled: true
     daemon-reload: true
+  when: media_role
 
 - name: Create /data directories
   ansible.builtin.file:
@@ -81,6 +89,7 @@
     - /data/torrent/book
     - /data/torrent/movie
     - /data/torrent/tv
+  when: media_role
 
 - name: Copy /etc/rsyncd.conf
   ansible.builtin.copy:
@@ -89,12 +98,14 @@
     owner: root
     group: root
     mode: '0644'
+  when: media_role
 
 - name: Start rsync.service
   ansible.builtin.systemd:
     name: rsync.service
     state: started
     enabled: true
+  when: media_role
 
 - name: Copy compose.yml
   ansible.builtin.copy:
@@ -103,6 +114,7 @@
     owner: '{{ media_owner }}'
     group: '{{ media_owner }}'
     mode: '0644'
+  when: media_role
 
 - name: Create appdata directories
   ansible.builtin.file:
@@ -117,3 +129,4 @@
     - '/home/{{ media_owner }}/appdata/qbittorrent'
     - '/home/{{ media_owner }}/appdata/radarr'
     - '/home/{{ media_owner }}/appdata/sonarr'
+  when: media_role

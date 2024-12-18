@@ -14,26 +14,32 @@
     - role: cees
       tags: cees
 
+    - role: media
+      tags: media
+
     - role: notebook
       tags: notebook
- 
+
     - role: nvim
       tags: nvim
- 
+
     - role: proxy
       tags: proxy
- 
+
     - role: repositories
       tags: repositories
-  
+
     - role: semaphore
       tags: semaphore
- 
+
     - role: ssh_host_keys
       tags: ssh_host_keys
-  
+
+    - role: wireguard
+      tags: wireguard
+
     - role: workstation
       tags: workstation
-  
+
     - role: zsh
       tags: zsh
