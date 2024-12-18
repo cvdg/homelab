@@ -1,0 +1,24 @@
+---
+- name: Database backup playbook
+  hosts: database01.griend.dev
+  become: true
+
+  tasks:
+    - name: Create backup directory
+      ansible.builtin.file:
+        path: /srv/backup
+        state: directory
+        owner: postgres
+        group: adm
+        mode: '0750'
+
+    - name: Create backup
+      community.postgresql.postgresql_db:
+        db: '{{ item }}'
+        state: dump
+        target: '/srv/backup/{{ item }}-{{ ansible_date_time.date }}.sql.gz'
+      loop:
+        - cees
+        - semaphore
+      become: true
+      become_user: postgres
