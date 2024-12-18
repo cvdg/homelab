@@ -1,3 +1,6 @@
 ---
 ansible_host: 192.168.2.12
 workstation_role: true
+utilities_role: true
+utilities_network_role: true
+utilities_system_role: true

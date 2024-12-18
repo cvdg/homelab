@@ -38,6 +38,9 @@
     - role: ssh_host_keys
       tags: ssh_host_keys
 
+    - role: utilities
+      tags: utilities
+
     - role: wireguard
       tags: wireguard
 
