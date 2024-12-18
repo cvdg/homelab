@@ -1,0 +1,16 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ proxy_packages }}"
+    state: present
+  when: proxy_role
+
+- name: Create squid.conf
+  ansible.builtin.copy:
+    src: squid.conf
+    dest: /etc/squid/squid.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart squid.service
+  when: proxy_role

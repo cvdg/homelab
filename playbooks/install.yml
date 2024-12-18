@@ -5,13 +5,35 @@
   gather_facts: true
 
   roles:
-    - ansible
-    - backup
-    - cees
-    - notebook
-    - nvim
-    - repositories
-    - semaphore
-    - ssh_host_keys
-    - workstation
-    - zsh
+    - role: ansible
+      tags: ansible
+
+    - role: backup
+      tags: backup
+
+    - role: cees
+      tags: cees
+
+    - role: notebook
+      tags: notebook
+ 
+    - role: nvim
+      tags: nvim
+ 
+    - role: proxy
+      tags: proxy
+ 
+    - role: repositories
+      tags: repositories
+  
+    - role: semaphore
+      tags: semaphore
+ 
+    - role: ssh_host_keys
+      tags: ssh_host_keys
+  
+    - role: workstation
+      tags: workstation
+  
+    - role: zsh
+      tags: zsh
