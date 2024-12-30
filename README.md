@@ -1,4 +1,3 @@
 # homelab
 
-Configure my homelab on `proxmox`` with `ansible`.
-
+Configure my homelab on `proxmox` with `ansible`.
