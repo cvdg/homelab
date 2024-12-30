@@ -16,8 +16,8 @@ all:
         git01.griend.dev:
         database01.griend.dev:
         workstation01.griend.dev:
-        semaphore01.griend.dev:
+        # semaphore01.griend.dev:
     workstation:
       hosts:
         workstation01.griend.dev:
-        workstation02.griend.dev:
+        # workstation02.griend.dev:

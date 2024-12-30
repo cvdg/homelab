@@ -1,8 +1,4 @@
-# homelab-proxmox
+# homelab
 
-Configure my homelab with `ansible`.
+Configure my homelab on `proxmox`` with `ansible`.
 
-## Playbooks
-
-- `griend.proxmox.hello` - the obligated 'Hello, World!' example
-- `griend.proxmox.bootstrap` - bootstrap a new host with a ansible user
