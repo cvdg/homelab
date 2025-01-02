@@ -21,3 +21,4 @@ all:
       hosts:
         workstation01.griend.dev:
         # workstation02.griend.dev:
+        workstation03.griend.dev:
