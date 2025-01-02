@@ -17,6 +17,9 @@
     - role: cees
       tags: cees
 
+    - role: locale
+      tags: locale
+
     - role: media
       tags: media
 
