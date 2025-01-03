@@ -5,6 +5,9 @@ all:
       hosts:
         pve01.griend.dev:
         pve02.griend.dev:
+    raspi:
+      hosts:
+        workstation03.griend.dev:
     kvm:
       hosts:
         dns01.griend.dev:
@@ -16,9 +19,8 @@ all:
         git01.griend.dev:
         database01.griend.dev:
         workstation01.griend.dev:
-        # semaphore01.griend.dev:
     workstation:
       hosts:
         workstation01.griend.dev:
-        # workstation02.griend.dev:
+        workstation02.griend.dev:
         workstation03.griend.dev:
