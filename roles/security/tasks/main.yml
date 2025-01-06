@@ -20,6 +20,7 @@
     mode: '0755'
   when: security_role
 
+
 - name: Download golang
   ansible.builtin.get_url:
     url: '{{ security_golang_url }}'
@@ -30,6 +31,13 @@
     mode: '0644'
   when: security_role
 
+- name: Check if go is installed
+  ansible.builtin.stat:
+    path: /opt/go
+    get_checksum: false
+  register: go
+  when: security_role
+
 - name: Extract golang
   ansible.builtin.unarchive:
     src: "/opt/download/go{{ security_golang_version }}.linux-amd64.tar.gz"
@@ -38,10 +46,17 @@
     owner: root
     group: root
     mode: '0755'
+  when: security_role and not go.stat.isdir
+
+- name: Check if nuclei is installed
+  ansible.builtin.stat:
+    path: /home/cees/go/bin/nuclei
+    get_checksum: false
+  register: nuclei
   when: security_role
 
 - name: Install nuclei
   ansible.builtin.command: /opt/go/bin/go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
   become: true
   become_user: "cees"
-  when: security_role
+  when: security_role and not nuclei.stat.executable

@@ -75,7 +75,7 @@
   ansible.builtin.file:
     name: '{{ item }}'
     state: directory
-    owner: '{{ media_owner }}'
+    owner: '{{ media_podman_uid }}'
     group: '{{ media_group }}'
     mode: '0775'
   loop:
