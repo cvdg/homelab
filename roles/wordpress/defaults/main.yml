@@ -1,0 +1,11 @@
+---
+wordpress_role: false
+
+# https://wiki.debian.org/WordPress
+wordpress_packages:
+ - apache2
+ - curl
+ - mariadb-server
+ - wordpress
+
+ - python3-pexpect

@@ -1,0 +1,81 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ wordpress_packages }}"
+    state: present
+  when: wordpress_role
+
+- name: Check if already run
+  ansible.builtin.stat:
+    path: /root/.wordpress.run
+    get_checksum: false
+  register: wordpress_run
+  when: wordpress_role
+
+- name: Execute mysql_secure_installation
+  ansible.builtin.expect:
+    command: /usr/bin/mysql_secure_installation
+    responses:
+      'Enter current password for root': ''
+      'Set root password': 'n'
+      'Remove anonymous users': 'y'
+      'Disallow root login remotely': 'y'
+      'Remove test database': 'y'
+      'Reload privilege tables now': 'y'
+      'Switch to unix_socket authentication': 'y'
+      'Change the root password': 'n'
+    timeout: 1
+  register: secure_mariadb
+  become: true
+  become_user: root
+  when: wordpress_role and not wordpress_run.stat.exists
+
+- name: Debug
+  ansible.builtin.debug:
+    var: secure_mariadb
+  when: wordpress_role and not wordpress_run.stat.exists
+
+- name: Create /etc/apache2/sites-available/wp.conf
+  ansible.builtin.template:
+    src: wp.conf.j2
+    dest: /etc/apache2/sites-available/wp.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload apache2.service
+  when: wordpress_role
+
+- name: Disable 000-default
+  ansible.builtin.command:
+    cmd: /usr/sbin/a2dissite 000-default
+  notify: Reload apache2.service
+  when: wordpress_role
+
+- name: Enable wp.conf
+  ansible.builtin.command:
+    cmd: /usr/sbin/a2ensite wp
+  notify: Reload apache2.service
+  when: wordpress_role
+
+- name: Create /etc/apache2/sites-available/wp.conf
+  ansible.builtin.template:
+    src: config-wordpress.php.j2
+    dest: "/etc/wordpress/config-{{ ansible_default_ipv4.address }}.php"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload apache2.service
+  when: wordpress_role
+
+- name: Touch .wordpress.run
+  ansible.builtin.file:
+    path: /root/.wordpress.run
+    state: touch
+    owner: root
+    group: root
+    mode: '0644'
+  when: wordpress_role and not wordpress_run.stat.exists
+
+- name: Debug
+  ansible.builtin.debug:
+    var: ansible_default_ipv4.address
