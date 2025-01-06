@@ -4,3 +4,4 @@ workstation_role: true
 utilities_role: true
 utilities_network_role: true
 utilities_system_role: true
+security_role: true

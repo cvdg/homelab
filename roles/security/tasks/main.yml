@@ -1,0 +1,47 @@
+---
+- name: Install requirements
+  ansible.builtin.apt:
+    name: "{{ security_requirements }}"
+    state: present
+  when: security_role
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ security_packages }}"
+    state: present
+  when: security_role
+
+- name: Create /opt/download
+  ansible.builtin.file:
+    dest: /opt/download
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: security_role
+
+- name: Download golang
+  ansible.builtin.get_url:
+    url: '{{ security_golang_url }}'
+    dest: "/opt/download/go{{ security_golang_version }}.linux-amd64.tar.gz"
+    checksum: '{{ security_golang_checksum }}'
+    owner: root
+    group: root
+    mode: '0644'
+  when: security_role
+
+- name: Extract golang
+  ansible.builtin.unarchive:
+    src: "/opt/download/go{{ security_golang_version }}.linux-amd64.tar.gz"
+    remote_src: true
+    dest: /opt
+    owner: root
+    group: root
+    mode: '0755'
+  when: security_role
+
+- name: Install nuclei
+  ansible.builtin.command: /opt/go/bin/go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+  become: true
+  become_user: "cees"
+  when: security_role

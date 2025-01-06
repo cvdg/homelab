@@ -1,0 +1,22 @@
+---
+security_role: false
+
+security_requirements:
+ - python3
+ - golang-go
+
+security_packages: 
+ # network scanner
+ - nmap
+ # password crackers
+ - hashcat
+ - john # John the Ripper
+ # WiFi
+ - aircrack-ng
+ - wifite
+ # SQL injection
+ - sqlmap
+
+security_golang_version: 1.23.4
+security_golang_url: "https://go.dev/dl/go{{ security_golang_version }}.linux-amd64.tar.gz"
+security_golang_checksum: "sha256:6924efde5de86fe277676e929dc9917d466efa02fb934197bc2eba35d5680971"

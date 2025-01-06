@@ -1,6 +1,6 @@
 ---
 - name: Install playbook
-  hosts: all
+  hosts: all, !nas01.griend.dev
   become: true
   gather_facts: true
 
@@ -35,8 +35,8 @@
     - role: repositories
       tags: repositories
 
-    - role: semaphore
-      tags: semaphore
+    - role: security
+      tags: security
 
     - role: ssh_host_keys
       tags: ssh_host_keys
