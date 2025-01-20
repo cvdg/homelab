@@ -1,6 +1,6 @@
 ---
 - name: Upgrade playbook
-  hosts: all
+  hosts: all, !nas01.griend.dev
   become: true
   gather_facts: false
 
