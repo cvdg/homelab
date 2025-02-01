@@ -5,10 +5,10 @@
   tasks:
     - name: Synchronize to backup01 task
       ansible.posix.synchronize:
-        src: /home/cees/Documents
+        src: /home/cees/Documents/
         dest: backup01.griend.dev:/srv/backup/Documents
 
     - name: Synchronize to nas01 task
       ansible.posix.synchronize:
-        src: /home/cees/Documents
+        src: /home/cees/Documents/
         dest: nas01.griend.dev:/mnt/pool0/Home/cees/Documenten
