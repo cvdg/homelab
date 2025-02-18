@@ -1,0 +1,19 @@
+---
+- name: Pull remote github repositories
+  hosts: git01.griend.dev
+  become: yes
+  become_user: cees
+  gather_facts: false
+
+  tasks:
+    - name: Pull repositories cvdg
+      ansible.builtin.git:
+        repo: 'https://github.com/cvdg/{{ item }}'
+        dest: '/srv/{{ item }}'
+      with_items:
+        - cvdg
+        - cvdg.github.io
+        - dotfiles
+        - gezondheid
+        - homelab
+        - notes

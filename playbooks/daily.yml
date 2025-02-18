@@ -2,3 +2,4 @@
 - import_playbook: backup/synchronize.yml
 - import_playbook: backup/snapshot.yml
 - import_playbook: database/backup.yml
+- import_playbook: git/pull.yml
