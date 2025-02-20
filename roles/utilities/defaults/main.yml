@@ -7,7 +7,6 @@ utilities_packages:
   - lsd
   - rsync
   - zip
-  - keepassxc
 
 utilities_network_packages:
   - iotop

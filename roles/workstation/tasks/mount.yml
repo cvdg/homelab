@@ -1,15 +1,7 @@
----
-- name: Install packages
-  ansible.builtin.apt:
-    name: '{{ workstation_packages }}'
-    state: present
-  when: workstation_role
-
 - name: Check if media mount point exists
   ansible.builtin.stat:
     path: /mnt/media
   register: media
-  when: workstation_role
 
 - name: Create media mount point
   ansible.builtin.file:
@@ -18,7 +10,7 @@
     owner: jellyfin
     group: jellyfin
     mode: '0755'
-  when: workstation_role and (not media.stat.isdir is defined or not media.stat.isdir)
+  when: media_role and (not media.stat.isdir is defined or not media.stat.isdir)
 
 - name: Copy mnt-media.mount
   ansible.builtin.copy:
@@ -27,7 +19,6 @@
     owner: root
     group: root
     mode: '0644'
-  when: workstation_role
 
 - name: Copy mnt-media.automount
   ansible.builtin.copy:
@@ -36,7 +27,6 @@
     owner: root
     group: root
     mode: '0644'
-  when: workstation_role
 
 - name: Start mnt-media.automount
   ansible.builtin.systemd:
@@ -44,4 +34,3 @@
     state: started
     enabled: true
     daemon-reload: true
-  when: workstation_role

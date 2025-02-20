@@ -1,5 +1,10 @@
 ---
-workstation_role: 
+workstation_role: false
 workstation_packages:
   - task-desktop
   - task-gnome-desktop
+
+  - calibre
+  - keepassxc
+  - nfs-common
+  - vlc
