@@ -1,0 +1,9 @@
+---
+- name: Bootstrap dns
+  hosts: dns01.griend.dev
+  become: true
+  gather_facts: true
+
+  roles:
+    - dns
+      tags: dns
