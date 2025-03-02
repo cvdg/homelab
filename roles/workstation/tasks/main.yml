@@ -15,8 +15,8 @@
   ansible.builtin.file:
     path: /mnt/media
     state: directory
-    owner: jellyfin
-    group: jellyfin
+    owner: root
+    group: root
     mode: '0755'
   when: workstation_role and (not media.stat.isdir is defined or not media.stat.isdir)
 
