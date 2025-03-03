@@ -6,10 +6,16 @@
   gather_facts: false
 
   tasks:
+    - name: Create destination cvdg
+      ansible.builtin.file:
+        name: /srv/cvdg
+        state: directory
+        mode: '0755'
+
     - name: Pull repositories cvdg
       ansible.builtin.git:
         repo: 'https://github.com/cvdg/{{ item }}'
-        dest: '/srv/{{ item }}'
+        dest: '/srv/cvdg/{{ item }}'
       with_items:
         - cvdg
         - cvdg.github.io

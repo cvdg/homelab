@@ -6,6 +6,7 @@ utilities_system_role: false
 utilities_packages:
   - lsd
   - rsync
+  - libxml2-utils
   - zip
 
 utilities_network_packages:
