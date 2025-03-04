@@ -6,11 +6,14 @@
   gather_facts: false
 
   tasks:
-    - name: Create destination cvdg
+    - name: Create destinations
       ansible.builtin.file:
-        name: /srv/cvdg
+        name: '/srv/{{ item }}'
         state: directory
         mode: '0755'
+      with_items:
+        - cvdg
+        - griend
 
     - name: Pull repositories cvdg
       ansible.builtin.git:
@@ -23,3 +26,11 @@
         - gezondheid
         - homelab
         - notes
+
+    - name: Pull repositories griend
+      ansible.builtin.git:
+        repo: 'https://github.com/griend/{{ item }}'
+        dest: '/srv/griend/{{ item }}'
+      with_items:
+        - griend.github.io
+        - sksc

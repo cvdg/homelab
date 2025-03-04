@@ -8,6 +8,9 @@
     - role: ansible
       tags: ansible
 
+    - role: apt
+      tags: apt
+
     - role: backup
       tags: backup
 
