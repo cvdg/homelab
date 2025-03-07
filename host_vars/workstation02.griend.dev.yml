@@ -5,3 +5,4 @@ utilities_role: true
 utilities_network_role: true
 utilities_system_role: true
 security_role: true
+workstation_install_signal: true

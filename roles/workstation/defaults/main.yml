@@ -8,3 +8,6 @@ workstation_packages:
   - keepassxc
   - nfs-common
   - vlc
+
+# Install Signal Messenger
+workstaion_install_signal: false

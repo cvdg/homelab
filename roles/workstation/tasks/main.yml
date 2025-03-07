@@ -45,3 +45,21 @@
     enabled: true
     daemon-reload: true
   when: workstation_role
+
+- name: Signal GPG key
+  ansible.builtin.apt_key:
+    url: https://updates.signal.org/desktop/apt/keys.asc
+    state: present
+  when: workstation_install_signal
+
+- name: Signal Repository 
+  ansible.builtin.apt_repository:
+    repo: 'deb https://updates.signal.org/desktop/apt xenial main'
+    state: present
+  when: workstation_install_signal
+
+- name: Install Signal Desktop
+  ansible.builtin.apt:
+    name: signal-desktop
+    state: present
+  when: workstation_install_signal
