@@ -20,5 +20,6 @@
       loop:
         - cees
         - semaphore
+        - stocks
       become: true
       become_user: postgres
